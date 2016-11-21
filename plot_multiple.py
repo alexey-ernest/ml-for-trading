@@ -25,6 +25,9 @@ def get_data(symbols, dates):
 
     return df
 
+def normalize_data(df):
+    return df/df.ix[0,:]
+
 def plot_data(df, title='Stock Prices'):
     ax = df.plot(title=title)
     ax.set_xlabel('Date')
@@ -40,8 +43,8 @@ def test_run():
     
     # Get stock data
     df = get_data(symbols, dates)
-    #df = df/df.ix['2015-11-23':'2015-11-23']
-    plot_data(df)
+    
+    plot_data(normalize_data(df))
 
 
 if __name__ == "__main__":
