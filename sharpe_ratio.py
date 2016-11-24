@@ -41,6 +41,8 @@ def portfolio_stats(start_val, symbols, allocs, start_date='2015-11-23', end_dat
 def test_run():
   port_vals, daily_returns, cum_ret, sharpe_ratio = portfolio_stats(1000000, ['SPY', 'XOM', 'GOOG', 'GLD'], [.4, .4, .1, .1])
   print 'Cumulative return:', cum_ret
+  print 'Average daily return:', daily_returns.mean()
+  print 'Risk (daily std):', daily_returns.std()
   print 'Sharpe ratio:', sharpe_ratio
   
   plot_data(port_vals, title='Portfolio value', ylabel='Portfolio value')
