@@ -25,27 +25,31 @@ def get_data(symbols, dates):
 
     return df
 
-def normalize_data(df):
-    return df/df.ix[0,:]
-
-def plot_data(df, title='Stock Prices'):
-    ax = df.plot(title=title)
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Price')
-    plt.show()
-
 def test_run():
+
     # Define a date range
     dates = pd.date_range('2015-11-23', '2016-11-18')
 
     # Choose stock symbols to read
-    symbols = ['SPY', 'GOOG', 'IBM', 'GLD']
+    symbols = ['SPY']
     
     # Get stock data
     df = get_data(symbols, dates)
     
-    plot_data(normalize_data(df))
+    # Plot SPY data, retain matplotlib axis object
+    ax = df['SPY'].plot(title='SPY rolling mean', label='SPY')
 
+    # Compute rolling mean using a 20-day window
+    rm_SPY = df['SPY'].rolling(window=20).mean()
+
+    # Add rolling mean to same plot
+    rm_SPY.plot(label='Rolling mean', ax=ax)
+
+    # Add exis labels and legend
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Price')
+    ax.legend(loc='upper left')
+    plt.show()
 
 if __name__ == "__main__":
     test_run()

@@ -25,9 +25,6 @@ def get_data(symbols, dates):
 
     return df
 
-def normalize_data(df):
-    return df/df.ix[0,:]
-
 def plot_data(df, title='Stock Prices'):
     ax = df.plot(title=title)
     ax.set_xlabel('Date')
@@ -39,12 +36,18 @@ def test_run():
     dates = pd.date_range('2015-11-23', '2016-11-18')
 
     # Choose stock symbols to read
-    symbols = ['SPY', 'GOOG', 'IBM', 'GLD']
+    symbols = ['SPY', 'XOM', 'GOOG', 'GLD']
     
     # Get stock data
     df = get_data(symbols, dates)
     
-    plot_data(normalize_data(df))
+
+    # compute global statistics for each stock
+    print '\nMean:\n', df.mean()
+    print '\nMedian:\n', df.median()
+    print '\nStd:\n', df.std()
+
+    plot_data(df)
 
 
 if __name__ == "__main__":
