@@ -34,8 +34,7 @@ def optimize(df, allocations=None, risk_free=0):
   if allocations == None:
     allocations = [1.0/df.shape[0]] * df.shape[0]
 
-  cons = ({'type': 'ineq', 'fun': lambda x: x},
-          {'type': 'eq', 'fun': lambda x: sum(x) - 1})
+  cons = ({'type': 'eq', 'fun': lambda x: sum(abs(x)) - 1})
   result = spo.minimize(error, allocations, args=(df,risk_free), constraints=cons, method='SLSQP', options={'disp': True})
   return result.x
 
